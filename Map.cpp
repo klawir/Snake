@@ -3,22 +3,18 @@
 
 Map::Map()
 {
-	for (int a = 0; a < height; a++)
+	for (int a = 0; a < HEIGHT; a++)
 	{
-		for (int b = 0; b < width; b++)
+		for (int b = 0; b < WIDTH; b++)
 			map[a][b] = " ";
 	}
 }
 
-Map::~Map()
-{
-
-}
 int Map::GetWidth()const
 {
-	return width;
+	return WIDTH;
 }
 int Map::GetHeight()const
 {
-	return height;
+	return HEIGHT;
 }

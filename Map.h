@@ -1,13 +1,13 @@
 #pragma once
+
 #include "libraries.h"
+
 class Map
 {
-	
+	enum { HEIGHT = 15, WIDTH = 30 };
 public:
-	enum { height = 15, width = 30 };
-	string map[height][width];
+	string map[HEIGHT][WIDTH];
 	Map();
-	~Map();
 	int GetWidth()const;
 	int GetHeight()const;
 };
