@@ -1,26 +1,19 @@
 #include "Controll.h"
-
-#define LEFT 75
-#define RIGHT 77
-#define UP 72
-#define DOWN 80
+#define _left 75
+#define _right 77
+#define _up 72
+#define _down 80
 
 Controll::Controll()
 {
-	left = false;
-	right = false;
-	up = false;
-	down = false;
+	left=right=up=down=false;
 	right = true;
 }
-void Controll::Turnig(bool left, bool right, bool up, bool down)
-{
-	this->left = left;
-	this->right = right;
-	this->down = down;
-	this->up = up;
-}
 
+
+Controll::~Controll()
+{
+}
 void Controll::Keyboard()
 {
 	int key;
@@ -29,29 +22,49 @@ void Controll::Keyboard()
 		key = _getch();
 		switch (key)
 		{
-		case LEFT:
+		case _left:
 		{
 			if (right) {}
-			else
-				Turnig(true, false, false, false);
+			else 
+			{
+				left = true;
+				right = false;
+				down = false;
+				up = false;
+			}
 		}break;
-		case RIGHT:
+		case _right:
 		{
 			if (left) {}
 			else
-				Turnig(false, true, false, false);
+			{
+				right = true;
+				left = false;
+				down = false;
+				up = false;
+			}
 		}break;
-		case UP:
+		case _up:
 		{
 			if (down) {}
 			else
-				Turnig(false, false, true, false);
+			{
+				up = true;
+				left = false;
+				right = false;
+				down = false;
+			}
 		}break;
-		case DOWN:
+		case _down:
 		{
 			if (up) {}
 			else 
-				Turnig(false, false, false, true);
+			{
+				down = true;
+				left = false;
+				right = false;
+				up = false;
+			}
 		}break;
 		default: {}
 		}

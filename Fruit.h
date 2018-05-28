@@ -1,7 +1,5 @@
 #pragma once
-
 #include "Snake.h"
-
 class Fruit:public Snake
 {
 	int y;
@@ -9,10 +7,10 @@ class Fruit:public Snake
 	string mark;
 public:
 	Fruit();
-	int GetYCoordinates();
-	int GetXCoordinates();
-	void SetYCoordinates(int a);
-	void SetXCoordinates(int a);
+	~Fruit();
+	int GetY();
+	int GetX();
+	void SetY(int a);
+	void SetX(int a);
 	string GetMark();
-	int RandomCoordinates(int a);
 };

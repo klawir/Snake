@@ -5,14 +5,16 @@
 Fruit::Fruit()
 {
 	mark = "a";
-	this->y=(RandomCoordinates((GetHeight()- 2) + 1));
-	this->x=(RandomCoordinates((GetWidth() - 2) + 1));
 }
-int Fruit::GetYCoordinates()
+Fruit::~Fruit()
+{
+
+}
+int Fruit::GetY()
 {
 	return y;
 }
-int Fruit::GetXCoordinates()
+int Fruit::GetX()
 {
 	return x;
 }
@@ -20,15 +22,11 @@ string Fruit::GetMark()
 {
 	return mark;
 }
-void Fruit::SetYCoordinates(int a)
+void Fruit::SetY(int a)
 {
 	y = a;
 }
-void Fruit::SetXCoordinates(int a)
+void Fruit::SetX(int a)
 {
 	x = a;
-}
-int Fruit::RandomCoordinates(int a)
-{
-	return rand() % a;
 }
