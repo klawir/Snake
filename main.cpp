@@ -1,28 +1,27 @@
-#include "libraries.h"
-#include "Map.h"
 #include "Snake.h"
 #include "Display.h"
-#include "GeneralManager.h"
 #include "Controll.h"
 #include "Fruit.h"
 #include "GameLogic.h"
-using std::ofstream;
+
+#define MINIMAL_VALUE_PARTS_OF_SNAKE_TO_COLLISION 4
+
+int loopCounter = 0;
+int slowMotion;
+int points;
+
 int main()
 {
 	points = 0;
 	srand(time(0));
 	Map map;
+	GameLogic gameLogic;
 	Snake snake;
 	Display display;
 	slowMotion = 15;
 	Controll controll;
-	int y, x, a = 0, b = 0;
-	y = rand() % (Map::height - 2) + 1;
-	x = rand() % (Map::width - 2) + 1;
+	int a = 0, b = 0;
 	Fruit *fruit= new Fruit;
-	fruit->SetY(y);
-	fruit->SetX(x);
-	GameLogic gameLogic;
 	for (;;)
 	{
 		if (loopCounter%slowMotion == 0)
@@ -32,32 +31,31 @@ int main()
 			a = b = 0;
 			for(;;a++, b++)
 			{
-				y = rand() % (Map::height - 2) + 1;
-				x = rand() % (Map::width - 2) + 1;
-				if (y != snake.body[a].y && x != snake.body[b].x)
-				{
-					fruit = new Fruit;
-					fruit->SetY(y);
-					fruit->SetX(x);
+				fruit = new Fruit;
+				if (gameLogic.CheckCoordinates(fruit->GetYCoordinates(), snake.body[a].y, "!=")
+					&& gameLogic.CheckCoordinates(fruit->GetXCoordinates(), snake.body[b].x, "!="))
 					break;
-				}
 				else
 					a = b = 0;
 			}
 			points++;
 		}
 		display.Clear();
-		display.Show(controll, fruit, snake, gameLogic, points);
+		display.Show(controll, fruit, snake, gameLogic);
 		controll.Keyboard();
-		for (int a = 4;a <= snake.end;a++)
+		for (int a = MINIMAL_VALUE_PARTS_OF_SNAKE_TO_COLLISION;a <= snake.end;a++)
 		{
-			if (snake.body[0].y == snake.body[a].y
-				&&snake.body[0].x == snake.body[a].x)
+			if (gameLogic.CheckCoordinates(snake.body[snake.begin].y, snake.body[a].y, "==")
+				&& gameLogic.CheckCoordinates(snake.body[snake.begin].x, snake.body[a].x, "=="))
+			{
+				system("cls");
 				return main();
+			}
 		}
 		if (loopCounter > 99) 
 			loopCounter = 0;
 		loopCounter++;
 		cout << points;
 	}
+	return 1;
 }
