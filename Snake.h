@@ -1,20 +1,38 @@
 #pragma once
+#include "Body.h"
 #include "Map.h"
-#include <fstream>
+#include "KeyBoard.h"
 
-class Snake:public Map
+class Snake
 {
-public:
 	enum { SIZEOFSNAKE = 200 };
-	struct Body
-	{
-		int x;
-		int y;
-	};
-	Snake();
 	int begin;
 	int end;
-	Body body[SIZEOFSNAKE];
-	void SetYCoordinates(int a);
-	void SetXCoordinates(int a);
+	KeyBoard *keyboard;
+	Map *map;
+	
+public:
+	Snake();
+	Snake(Map map, KeyBoard keyboard);
+	int GetSnakeBodyXPos();
+	int GetSnakeBodyYPos();
+	Body snakeBody[SIZEOFSNAKE];
+	int Begin();
+	int End();
+
+	void IncreaseHeadYCoordinates();
+	void IncreaseHeadXCoordinates(); 
+
+	void DecreaseHeadYCoordinates();
+	void DecreaseHeadXCoordinates();
+
+	void IncreaseEnd();
+	bool AteSomething();
+
+	void BasicBodyMove(Body body[]);
+
+	void IncreaseSnakeBody(KeyBoard &keyboard);
+
+	bool Suicide();
+
 };

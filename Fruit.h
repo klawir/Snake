@@ -1,18 +1,19 @@
 #pragma once
 
+#include "Map.h"
+#include "Body.h"
 #include "Snake.h"
+#include "KeyBoard.h"
 
-class Fruit:public Snake
+class Fruit:public Body
 {
-	int y;
-	int x;
 	string mark;
 public:
 	Fruit();
-	int GetYCoordinates();
-	int GetXCoordinates();
-	void SetYCoordinates(int a);
-	void SetXCoordinates(int a);
+	Fruit(const Map *map);
+	Fruit(const Map &map);
 	string GetMark();
 	int RandomCoordinates(int a);
+	bool FruitLogic(Snake &snake, KeyBoard &controll);
+	bool Eated(Snake &snake);
 };

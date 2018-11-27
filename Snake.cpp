@@ -1,21 +1,99 @@
-#pragma once
-#include "Snake.h"
 
+#include "Snake.h"
+#define MINIMAL_VALUE_PARTS_OF_SNAKE_TO_COLLISION 4
 Snake::Snake()
+{
+
+}
+Snake::Snake(Map map, KeyBoard keyboard)
 {
 	begin = 0;
 	end = begin;
-	for (int a=1; a <SIZEOFSNAKE; a++)
-		body[a].x = body[a].y = 0;
-	body[0].x = Map::GetWidth() / 2;
-	body[0].y = Map::GetHeight() / 2;
+	snakeBody[SIZEOFSNAKE];
+	snakeBody[0].SetX(map.GetWidth()/2);
+	snakeBody[0].SetY(map.GetHeight()/2);
+	this->keyboard = new KeyBoard;
+	this->keyboard = &keyboard;
+	this->map = new Map;
+	this->map = &map;
 }
-
-void Snake::SetYCoordinates(int a)
+int Snake::GetSnakeBodyXPos()
 {
-	body[begin].y += a;
+	return snakeBody[begin].GetX();
 }
-void Snake::SetXCoordinates(int a)
+int Snake::GetSnakeBodyYPos()
 {
-	body[begin].x += a;
+	return snakeBody[begin].GetY();
+}
+int Snake::Begin()
+{
+	return begin;
+}
+int Snake::End()
+{
+	return end;
+}
+void Snake::IncreaseHeadYCoordinates()
+{
+	snakeBody[begin].IncreaseYCoordinates();
+}
+void Snake::IncreaseHeadXCoordinates()
+{
+	snakeBody[begin].IncreaseXCoordinates();
+}
+void Snake::DecreaseHeadYCoordinates()
+{
+	snakeBody[begin].DecreaseYCoordinates();
+}
+void Snake::DecreaseHeadXCoordinates()
+{
+	snakeBody[begin].DecreaseHeadXCoordinates();
+}
+void Snake::IncreaseEnd()
+{
+	end++;
+}
+bool Snake::AteSomething()
+{
+	return end > begin;
+}
+void Snake::BasicBodyMove(Body body[])
+{
+	for (int a = 1; a <= end; a++)
+	{
+		body[a].SetY(snakeBody[a - 1].GetY());
+		body[a].SetX(snakeBody[a - 1].GetX());
+	}
+}
+void Snake::IncreaseSnakeBody(KeyBoard &keyboard)
+{
+	if (keyboard.Getright())
+	{
+		snakeBody[end].SetY(snakeBody[end - 1].GetY());
+		snakeBody[end].SetX(snakeBody[end - 1].GetX() - 1);
+	}
+	else if (keyboard.Getleft())
+	{
+		snakeBody[end].SetY(snakeBody[end - 1].GetY());
+		snakeBody[end].SetX(snakeBody[end - 1].GetX() + 1);
+	}
+	else if (keyboard.Getup())
+	{
+		snakeBody[end].SetY(snakeBody[end - 1].GetY()+1);
+		snakeBody[end].SetX(snakeBody[end - 1].GetX());
+	}
+	else if (keyboard.Getdown())
+	{
+		snakeBody[end].SetY(snakeBody[end - 1].GetY()-1);
+		snakeBody[end].SetX(snakeBody[end - 1].GetX());
+	}
+}
+bool Snake::Suicide()
+{
+	for (int a = MINIMAL_VALUE_PARTS_OF_SNAKE_TO_COLLISION; a <= end; a++)
+	{
+		if (snakeBody[begin].GetY() == snakeBody[a].GetY()
+			&& snakeBody[begin].GetX() == snakeBody[a].GetX())
+			return true;
+	}
 }

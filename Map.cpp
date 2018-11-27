@@ -8,8 +8,8 @@ Map::Map()
 		for (int b = 0; b < WIDTH; b++)
 			map[a][b] = " ";
 	}
+	cout << "Map()" << endl;
 }
-
 int Map::GetWidth()const
 {
 	return WIDTH;

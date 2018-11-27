@@ -11,4 +11,3 @@ public:
 	int GetWidth()const;
 	int GetHeight()const;
 };
-

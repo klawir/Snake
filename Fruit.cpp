@@ -1,34 +1,46 @@
 #include "Fruit.h"
 
+Fruit::Fruit() :Body()
+{
 
-
-Fruit::Fruit()
+}
+Fruit::Fruit(const Map *map): Body()
 {
 	mark = "a";
-	this->y=(RandomCoordinates((GetHeight()- 2) + 1));
-	this->x=(RandomCoordinates((GetWidth() - 2) + 1));
+	new Fruit();
+	this->yPos = (RandomCoordinates((map->GetHeight() - 2) + 1));
+	this->xPos = (RandomCoordinates((map->GetWidth() - 2) + 1));
 }
-int Fruit::GetYCoordinates()
+Fruit::Fruit(const Map &map):Body()
 {
-	return y;
+	mark = "a";
+	this->yPos=(RandomCoordinates((map.GetHeight()- 2) + 1));
+	this->xPos=(RandomCoordinates((map.GetWidth() - 2) + 1));
 }
-int Fruit::GetXCoordinates()
-{
-	return x;
-}
+
 string Fruit::GetMark()
 {
 	return mark;
 }
-void Fruit::SetYCoordinates(int a)
-{
-	y = a;
-}
-void Fruit::SetXCoordinates(int a)
-{
-	x = a;
-}
+
 int Fruit::RandomCoordinates(int a)
 {
 	return rand() % a;
+}
+bool Fruit::FruitLogic(Snake &snake, KeyBoard &controll)
+{
+	if (Eated(snake))
+	{
+		snake.IncreaseEnd();
+		snake.IncreaseSnakeBody(controll);
+		
+		delete this;
+		return true;
+	}
+	else return false;
+}
+bool Fruit::Eated(Snake &snake)
+{
+	return snake.snakeBody[snake.Begin()].GetY() == yPos 
+		&& snake.snakeBody[snake.Begin()].GetX() == xPos;
 }
