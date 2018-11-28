@@ -41,9 +41,10 @@ void GameManager::NewFruit()
 		for (int b = 0; b<snake->End(); b++)
 		{
 			fruit = new Fruit(map);
-			if (fruit->GetY() != snake->snakeBody[a].GetY()
-				&& fruit->GetX() != snake->snakeBody[b].GetX())
-				break;
+			if (fruit->GetY() != snake->snakeBody[a].GetY() &&
+				fruit->GetX() != snake->snakeBody[b].GetX())
+				if (a >= snake->End()-1)
+					break;
 		}
 	}
 }
