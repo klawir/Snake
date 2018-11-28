@@ -34,5 +34,14 @@ public:
 	void IncreaseSnakeBody(KeyBoard &keyboard);
 
 	bool Suicide();
+	bool EndOnRightXEdge();
+	void BodyEndResetX();
+	void BodyBeginResetX();
+	bool BeginOnRightXEdgeOfMap();
+	bool EndOnLeftXEdgeOfMap();
+	bool BeginOnLefttXEdgeOfMap();
+	void BodyOnLeftXEdgeOfMap();
 
+	void DecreaseXCoorditanes();
+	void DecreaseYCoorditanes();
 };

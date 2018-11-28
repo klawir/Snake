@@ -97,3 +97,52 @@ bool Snake::Suicide()
 			return true;
 	}
 }
+bool Snake::EndOnRightXEdge()
+{
+	return snakeBody[end].GetX() == map->GetWidth() - 1;
+}
+void Snake::BodyEndResetX()
+{
+	snakeBody[end].SetX(0);
+}
+void Snake::BodyBeginResetX()
+{
+	snakeBody[begin].SetX(0); 
+}
+bool Snake::BeginOnRightXEdgeOfMap()
+{
+	return snakeBody[begin].GetX() == map->GetWidth() - 1;
+}
+bool Snake::EndOnLeftXEdgeOfMap()
+{
+	return snakeBody[end].GetX() == 0;
+}
+bool Snake::BeginOnLefttXEdgeOfMap()
+{
+	return snakeBody[begin].GetX() == 0;
+}
+void Snake::BodyOnLeftXEdgeOfMap()
+{
+	if (EndOnLeftXEdgeOfMap())
+		snakeBody[end].SetX(map->GetWidth() - 1);
+	else if (BeginOnLefttXEdgeOfMap())
+		snakeBody[begin].SetX(map->GetWidth() - 1);
+}
+void Snake::DecreaseXCoorditanes()
+{
+	for (int a = 1; a < end; a++)
+	{
+		snakeBody[a].DecreaseHeadXCoordinates();
+		if (snakeBody[a].GetX() == 0)
+			snakeBody[a].SetX(map->GetWidth() - 1);
+	}
+}
+void Snake::DecreaseYCoorditanes()
+{
+	for (int a = 1; a < end; a++)
+	{
+		snakeBody[a].DecreaseYCoordinates();
+		if (snakeBody[a].GetY() == 0)
+			snakeBody[a].SetX(map->GetHeight() - 1);
+	}
+}

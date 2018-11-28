@@ -6,7 +6,9 @@
 class TurnDown:public ICommand
 {
 	Snake &snake;
+	Body &body;
+	Map &map;
 public:
-	TurnDown(Snake &snake);
+	TurnDown(Snake &snake, Body body[], Map &map);
 	void Execute();
 };
